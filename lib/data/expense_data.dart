@@ -1,3 +1,4 @@
+import 'package:expense_tracker/datetime/date_time_helper.dart';
 import 'package:expense_tracker/models/expense_item.dart';
 
 class ExpenseData {
@@ -48,15 +49,13 @@ class ExpenseData {
 
     DateTime today = DateTime.now();
 
-    for(int i=0;i<7;i++)
-    {
-      if(getDayName(today.subtract(Duration(days: i)))=="Sun")
-      {
+    for (int i = 0; i < 7; i++) {
+      if (getDayName(today.subtract(Duration(days: i))) == "Sun") {
         startOfWeek = today.subtract(Duration(days: i));
         break;
       }
     }
-    return startOfWeek!; 
+    return startOfWeek!;
   }
 
   /*
@@ -65,4 +64,22 @@ class ExpenseData {
   e.g. overallExpenseList
 
   */
+  Map<String, double> calculateDailyExpenseSummary() {
+    Map<String, double> dailyExpenseSummary = {};
+
+    for (var expense in overAllExpenseList) {
+      String date = convertDateTimeToString(expense.dateTime);
+      double amount = double.parse(expense.amount);
+
+      if (dailyExpenseSummary.containsKey(date)) {
+        double currentAmount = dailyExpenseSummary[date]!;
+        currentAmount += amount;
+        dailyExpenseSummary[date] = currentAmount;
+      }
+      else {
+        dailyExpenseSummary.addAll({date: amount});
+      }
+    }
+    return dailyExpenseSummary;
+  }
 }
