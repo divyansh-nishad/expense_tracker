@@ -47,7 +47,7 @@ class ExpenseData extends ChangeNotifier {
   }
 
   //get the date for the start of the week (sunday)
-  DateTime startOfWeekDate(DateTime dateTime) {
+  DateTime startOfWeekDate() {
     DateTime? startOfWeek;
 
     DateTime today = DateTime.now();
@@ -55,7 +55,6 @@ class ExpenseData extends ChangeNotifier {
     for (int i = 0; i < 7; i++) {
       if (getDayName(today.subtract(Duration(days: i))) == "Sun") {
         startOfWeek = today.subtract(Duration(days: i));
-        break;
       }
     }
     return startOfWeek!;

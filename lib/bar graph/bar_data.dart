@@ -22,7 +22,7 @@ class BarData {
   });
 
   //initialize bar data
-  void init() {
+  void initializeBardata() {
     barData = [
       Individualbar(x: 0, y: sunAmount),
       Individualbar(x: 1, y: monAmount),
