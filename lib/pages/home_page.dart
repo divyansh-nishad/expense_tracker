@@ -90,13 +90,17 @@ class _HomePageState extends State<HomePage> {
 
   //save
   void save() {
-    String amount =
-        '${newExpenseRupeeController.text}.${newExpensePaiseController.text}';
-    ExpenseItem newExpense = ExpenseItem(
-        name: newExpenseNameController.text,
-        amount: (amount),
-        dateTime: DateTime.now());
-    Provider.of<ExpenseData>(context, listen: false).addExpense(newExpense);
+    if (newExpenseNameController.text.isNotEmpty &&
+        newExpenseRupeeController.text.isNotEmpty &&
+        newExpensePaiseController.text.isNotEmpty) {
+      String amount =
+          '${newExpenseRupeeController.text}.${newExpensePaiseController.text}';
+      ExpenseItem newExpense = ExpenseItem(
+          name: newExpenseNameController.text,
+          amount: (amount),
+          dateTime: DateTime.now());
+      Provider.of<ExpenseData>(context, listen: false).addExpense(newExpense);
+    }
     clear();
     Navigator.pop(context);
   }
