@@ -1,12 +1,17 @@
 import 'package:expense_tracker/data/expense_data.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 // import 'google_sheets_api.dart';
 import 'pages/home_page.dart';
 
-void main() {
+void main() async{
+  // await Hive
+  await Hive.initFlutter();
+
+  await Hive.openBox('expense_database');
+
   WidgetsFlutterBinding.ensureInitialized();
-  // GoogleSheetsApi().init();
   runApp(const MyApp());
 }
 

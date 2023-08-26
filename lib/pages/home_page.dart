@@ -17,6 +17,15 @@ class _HomePageState extends State<HomePage> {
   final newExpenseRupeeController = TextEditingController();
   final newExpensePaiseController = TextEditingController();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+
+    Provider.of<ExpenseData>(context, listen: false).prepareData();
+  }
+
   void addNewExpense() {
     showDialog(
       context: context,
@@ -74,6 +83,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // delete expense
+  void deleteExpense(ExpenseItem expense) {
+    Provider.of<ExpenseData>(context, listen: false).deleteExpense(expense);
+  }
+
   //save
   void save() {
     String amount =
@@ -88,7 +102,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   //cancel
-  void cancel() {}
+  void cancel() {
+    clear();
+    Navigator.pop(context);
+  }
 
   //clear
   void clear() {
@@ -123,6 +140,8 @@ class _HomePageState extends State<HomePage> {
                       name: value.getExpenseList()[index].name,
                       amount: value.getExpenseList()[index].amount,
                       dateTime: value.getExpenseList()[index].dateTime,
+                      deleteTapped: (p0) =>
+                          deleteExpense(value.getExpenseList()[index]),
                     ))
           ],
         ),
